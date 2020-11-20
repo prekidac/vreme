@@ -2,7 +2,6 @@
 
 import argparse, bs4, requests
 import logging
-from selenium import webdriver
 
 logging.basicConfig(level=logging.DEBUG, filename="o.log")
 link = "http://www.hidmet.gov.rs/latin/prognoza/index.php" 
@@ -25,22 +24,20 @@ class Vreme(object):
     
     def all_cities(self) -> str:
         cities = []
-        for row in self.rows[3:]:
+        for row in self.rows[3:-3]:
             soup_obj = bs4.BeautifulSoup(str(row), features="html.parser")
             city = soup_obj.select("td")
-            cities.append(city[0].getText().replace(u"\xa0", u"").strip())
-        print(cities)
-
-            
+            cities.append("'" + city[0].getText().replace(u"\xa0", u"") + "'")
+        return ' '.join(cities)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Trenutno vreme sa hidmet.gov.rs")
     parser.add_argument("-c", action="store_true", help="list of all cities")
+    parser.add_argument("city", action="store", nargs="?", default="Novi sad")
     args = parser.parse_args()
-    v = Vreme()
-    args.c = True
+    v = Vreme(args.city)
     if args.c:
-        v.all_cities()
+        print(v.all_cities())
     else:
-        pass
+        print(args.city)
