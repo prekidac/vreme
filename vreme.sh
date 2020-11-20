@@ -1,12 +1,8 @@
 _vreme() {
-   local cur prev opts
+   local cur opts
 	COMPREPLY=()
 	cur="${COMP_WORDS[COMP_CWORD]}"
-    opts=( $(vreme -c) )
-
-	if [[ ${COMP_CWORD} -eq 1 ]] ; then
-		COMPREPLY=( $(compgen -W "${opts[@]}" -- ${cur}) )
-		return 0
-	fi
+    opts="Novi_sad Beograd"
+	COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 }
 complete -F _vreme vreme 

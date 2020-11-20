@@ -27,7 +27,7 @@ class Vreme(object):
         for row in self.rows[3:-3]:
             soup_obj = bs4.BeautifulSoup(str(row), features="html.parser")
             city = soup_obj.select("td")
-            cities.append("'" + city[0].getText().replace(u"\xa0", u"") + "'")
+            cities.append(city[0].getText().replace(u"\xa0", u"").replace(" ", "_"))
         return ' '.join(cities)
 
 
