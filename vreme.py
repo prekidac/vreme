@@ -1,10 +1,8 @@
 #! /usr/bin/env python3
 
 import argparse, bs4, requests
-import logging
 from colored import fg, attr
 
-logging.basicConfig(level=logging.DEBUG, filename="o.log")
 link = "http://www.hidmet.gov.rs/latin/osmotreni/index.php" 
 
 
