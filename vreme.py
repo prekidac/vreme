@@ -2,6 +2,7 @@
 
 import argparse, bs4, requests
 import logging
+from selenium import webdriver
 
 logging.basicConfig(level=logging.DEBUG, filename="o.log")
 link = "http://www.hidmet.gov.rs/latin/prognoza/index.php" 
@@ -21,10 +22,16 @@ class Vreme(object):
     def parse(self) -> None:
         soup_obj = bs4.BeautifulSoup(self.html, features="html.parser")
         self.rows = soup_obj.select("tr")
-        logging.debug(self.rows[0].getText())
     
     def all_cities(self) -> str:
-        pass
+        cities = []
+        for row in self.rows[3:]:
+            soup_obj = bs4.BeautifulSoup(str(row), features="html.parser")
+            city = soup_obj.select("td")
+            cities.append(city[0].getText().replace(u"\xa0", u"").strip())
+        print(cities)
+
+            
 
 
 if __name__ == "__main__":
@@ -32,7 +39,8 @@ if __name__ == "__main__":
     parser.add_argument("-c", action="store_true", help="list of all cities")
     args = parser.parse_args()
     v = Vreme()
+    args.c = True
     if args.c:
-        v.all_cities
+        v.all_cities()
     else:
         pass
