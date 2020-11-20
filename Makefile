@@ -6,5 +6,5 @@ all:
 	@echo 
 
 install:
-	@cp vreme.py ~/.local/bin/vreme
-	@cp vreme.sh /usr/share/bash-completions/completions/
+	@cp vreme.py /usr/local/bin/vreme
+	@cp vreme.sh /usr/share/bash-completion/completions/
