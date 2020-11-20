@@ -31,13 +31,17 @@ class Vreme(object):
             soup_obj = bs4.BeautifulSoup(str(row), features="html.parser")
             city = soup_obj.select("td")
             self.cities.append(city[0].getText().replace(u"\xa0", u"").replace(" ", "_"))
-            self.temps.append(city[1].getText().replace(u"\xa0", u"").strip())
+            try: 
+                self.temps.append(int(city[1].getText().replace(u"\xa0", u"").strip()))
+            except:
+                self.temps.append(int(city[2].getText().replace(u"\xa0", u"").strip()))
+
         return 
     
     def city_temp_print(self) -> None:
         if self.city in self.cities:
             self.temp = self.temps[self.cities.index(self.city)]
-            print(f"{fg(3) + self.city + attr('reset')}: {fg(2) + attr(1) + self.temp + attr('reset')} oC")
+            print(f"{fg(8) + self.city + attr('reset')}: {fg(2) + attr(1) + self.temp + attr('reset')} oC")
         else:
             exit('Pogresan unos')
 
