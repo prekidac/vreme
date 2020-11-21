@@ -8,6 +8,6 @@ _vreme() {
 		opts="$(vreme -c)"
 		echo >/tmp/vreme "${opts}"
 	fi
-	COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+	COMPREPLY=( $(compgen -W "${opts}" -- ${cur^}) )
 }
 complete -F _vreme vreme 
