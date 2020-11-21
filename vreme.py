@@ -37,14 +37,14 @@ class Vreme(object):
         return(' '.join(self.lst_all_cities))
     
     def cities_temp_print(self) -> None:
-        MAX = 0
+        MAX = 10
         for i in self.cities:
             if len(i) > MAX: MAX = len(i)
         for city in self.cities:
             if city in self.lst_all_cities:
                 self.temp = self.lst_all_temps[self.lst_all_cities.index(city)]
-                print(f"""{fg(8) + city.ljust(MAX) + attr('reset')} {fg(2) + attr(1) + 
-                    str(self.temp) + attr('reset')} {fg(8)}oC{attr('reset')}""")
+                print(f"""{fg(4) + attr(1) + city.ljust(MAX) + attr('reset')} {fg(2) + attr(1) + 
+                    str(self.temp) + attr('reset')} {fg(8)}{attr('reset')}""")
             else:
                 WRONG="--"
                 print(f"{fg(2) + attr(1)} {WRONG.center(10)} {attr('reset')} ")
