@@ -21,7 +21,7 @@ class Vreme(object):
             res_obj = requests.get(URL)
         except:
             logging.error("Nema interneta")
-            exit()
+            exit(1)
         self.html = res_obj.text
 
     def parse(self) -> None:

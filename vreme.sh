@@ -3,10 +3,18 @@ _vreme() {
 	COMPREPLY=()
 	cur="${COMP_WORDS[COMP_CWORD]}"
 	if [[ -f /tmp/vreme ]]; then
-		opts=$(</tmp/vreme)
+		mapfile -t </tmp/vreme opts
+		if [[ "${opts[0]}" == "$(date -d '')" ]]; then
+			opts="${opts[1]}"
+		else
+			opts="$(vreme -c)" || return 0
+			echo >/tmp/vreme $(date -d '')
+			echo >>/tmp/vreme "${opts}"
+		fi
 	else
-		opts="$(vreme -c)"
-		echo >/tmp/vreme "${opts}"
+		opts="$(vreme -c)" || return 0
+		echo >/tmp/vreme $(date -d '')
+		echo >>/tmp/vreme "${opts}"
 	fi
 	COMPREPLY=( $(compgen -W "${opts}" -- ${cur^}) )
 }
