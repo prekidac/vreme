@@ -1,9 +1,11 @@
 #! /usr/bin/env python3
 
-import argparse, bs4, requests, copy
+import argparse, bs4, requests, copy, logging
 from colored import fg, attr
 
-link = "http://www.hidmet.gov.rs/latin/osmotreni/index.php" 
+FORMAT="%(asctime)s -- %(levelname)s -- %(message)s -- line: %(lineno)s"
+logging.basicConfig(format=FORMAT, level=logging.ERROR)
+URL = "http://www.hidmet.gov.rs/latin/osmotreni/index.php" 
 
 
 class Vreme(object):
@@ -15,7 +17,11 @@ class Vreme(object):
         self.cities = city
 
     def load_page(self) -> None:
-        res_obj = requests.get(link)
+        try:
+            res_obj = requests.get(URL)
+        except:
+            logging.error("Nema interneta")
+            exit()
         self.html = res_obj.text
 
     def parse(self) -> None:
