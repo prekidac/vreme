@@ -18,11 +18,10 @@ class Vreme(object):
 
     def load_page(self) -> None:
         try:
-            res_obj = requests.get(URL)
+            self.html = requests.get(URL).text
         except:
             logging.error("Nema interneta")
             exit(1)
-        self.html = res_obj.text
 
     def parse(self) -> None:
         soup_obj = bs4.BeautifulSoup(self.html, features="html.parser")
