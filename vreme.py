@@ -52,8 +52,9 @@ class Vreme(object):
             if len(i) > MAX: MAX = len(i)
         for city in self.cities:
             if city in self.city_temp.keys():
-                print(f"""{fg(4) + attr(1) + city.ljust(MAX) + attr('reset')} {fg(2) + attr(1) + 
-                    str(self.city_temp[city]) + attr('reset')} {fg(8)}{attr('reset')}""")
+                print(f"""{
+                    fg(4) + attr(1) + city.ljust(MAX) + attr('reset')} {
+                    fg(2) + attr(1) + str(self.city_temp[city]) + attr('reset')}""")
             else:
                 WRONG="--"
                 print(f"{fg(2) + attr(1)} {WRONG.center(10)} {attr('reset')} ")
