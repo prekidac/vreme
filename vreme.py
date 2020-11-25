@@ -37,7 +37,10 @@ class Vreme(object):
             try: 
                city_temp = round(float(city[1].getText().replace(u"\xa0", u"").strip()))
             except:
-               city_temp = round(float(city[2].getText().replace(u"\xa0", u"").strip()))
+                try:
+                    city_temp = round(float(city[2].getText().replace(u"\xa0", u"").strip()))
+                except:
+                    city_temp = "-"
             self.city_temp[city_name] = city_temp
 
         return(' '.join(self.city_temp.keys()))
