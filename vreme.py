@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-import argparse, bs4, requests, copy, logging
+import argparse, bs4, requests, logging
 from colored import fg, attr
 
 FORMAT="%(asctime)s -- %(levelname)s -- %(message)s -- line: %(lineno)s"
@@ -43,15 +43,16 @@ class Vreme(object):
                     city_temp = "-"
             self.city_temp[city_name] = city_temp
 
-        return(' '.join(self.city_temp.keys()))
+        return(' '.join(self.city_temp))
     
     def cities_temp_print(self) -> None:
-        if "all" in copy.copy(self.cities): self.cities = self.city_temp.keys()
+        if "all" in self.cities:
+            self.cities = self.city_temp.keys()
         MAX = 10
         for i in self.cities:
             if len(i) > MAX: MAX = len(i)
         for city in self.cities:
-            if city in self.city_temp.keys():
+            if city in self.city_temp:
                 print(f"""{
                     fg(4) + attr(1) + city.ljust(MAX) + attr('reset')} {
                     fg(2) + attr(1) + str(self.city_temp[city]) + attr('reset')}""")
