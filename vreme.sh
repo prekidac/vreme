@@ -7,12 +7,12 @@ _vreme() {
 		if [[ "${opts[0]}" == "$(date -d '')" ]]; then
 			opts="${opts[1]}"
 		else
-			opts="$(vreme -c)" || return 0
+			opts="$(vreme -c)" || return 1
 			echo >/tmp/vreme $(date -d '')
 			echo >>/tmp/vreme "${opts}"
 		fi
 	else
-		opts="$(vreme -c)" || return 0
+		opts="$(vreme -c)" || return 1
 		echo >/tmp/vreme $(date -d '')
 		echo >>/tmp/vreme "${opts}"
 	fi
